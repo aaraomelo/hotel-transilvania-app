@@ -1,14 +1,28 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="800"
-  >
-    <v-card-title>
-    Cadastre um hóspede
-    </v-card-title>
-    <template >
-        <v-container fluid>
-            <form>
+<v-row justify="center">
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Adicionar hóspede
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Adicione um hóspede</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
                 <v-text-field
                     v-model="nome"
                     :error-messages="nomeErrors"
@@ -17,6 +31,8 @@
                     @input="$v.nome.$touch()"
                     @blur="$v.nome.$touch()"
                 ></v-text-field>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field
                     v-model="documento"
                     :error-messages="documentoErrors"
@@ -25,6 +41,8 @@
                     @input="$v.documento.$touch()"
                     @blur="$v.documento.$touch()"
                 ></v-text-field>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field
                     v-model="telefone"
                     :error-messages="telefoneErrors"
@@ -33,24 +51,36 @@
                     @input="$v.telefone.$touch()"
                     @blur="$v.telefone.$touch()"
                 ></v-text-field>
-                <v-btn
-                    class="mr-4"
-                    @click="submit"
-                >
-                    Cadastrar
-                </v-btn>
-                <v-btn @click="clear">
-                    Limpar
-                </v-btn>
-            </form>
-        </v-container >
-    </template>
-  </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false; $store.dispatch('saveGuest')"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
+  import { mapFields } from 'vuex-map-fields';
 
   export default {
     mixins: [validationMixin],
@@ -61,13 +91,13 @@
       telefone: { required },
     },
 
-    data: () => ({
-      nome: '',
-      documento: '',
-      telefone: '',
-    }),
-
+    data: () => ({dialog: false,}),
     computed: {
+      ...mapFields([
+            'form.nome',
+            'form.documento',
+            'form.telefone',
+        ]),
       nomeErrors () {
         const errors = []
         if (!this.$v.nome.$dirty) return errors

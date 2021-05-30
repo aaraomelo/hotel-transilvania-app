@@ -1,13 +1,11 @@
 <template>
   <v-card>
-    <Form></Form>
     <v-card
       class="mx-auto"
       max-width="800"
     >
       <v-card-title>
-      Hóspedes
-      <v-spacer></v-spacer>
+
       <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -15,12 +13,15 @@
           single-line
           hide-details
       ></v-text-field>
+      <Form/>
+
       </v-card-title>
 
       <v-simple-table>
 
       <template v-slot:top>
           <v-container fluid>
+
         <span>Filtrar por: </span>
 
               <v-radio-group
@@ -61,7 +62,7 @@
         <tbody>
           <tr
             v-for="item in guests"
-            :key="item.nome"
+            :key="item.documento"
           >
             <td>{{ item.nome }}</td>
             <td>{{ item.documento }}</td>
@@ -107,6 +108,9 @@
         guests(){
             return this.$store.state.guests
         }
+    },
+    mounted(){
+      this.$store.dispatch('loadGuests');
     }
   }
 </script>
