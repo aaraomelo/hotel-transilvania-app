@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import Guests from './Guests';
+import Guests from './Guests/';
 
   export default {
     name: "Tabs",
