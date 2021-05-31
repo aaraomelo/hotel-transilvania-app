@@ -1,5 +1,5 @@
 import { getField } from 'vuex-map-fields';
-import guestService from '../../services/guest.service'
+import checkinService from '../../services/checkin.service'
 
 const state = {
     form:{
@@ -9,7 +9,7 @@ const state = {
     },
     select:'nome',
     search:'',
-    guests: [
+    checkins: [
         {
         nome: '',
         documento: '',
@@ -19,11 +19,11 @@ const state = {
 };
 
 const mutations = {
-    addGuest(state, guest){
-        state.guests.push(guest);
+    addCheckin(state, checkins){
+        state.checkins.push(checkins);
     },
-    setGuests(state, guests){
-        state.guests= guests;
+    setCheckins(state, checkins){
+        state.checkins= checkins;
     },
     setSelect(state, value){
         state.select = value;
@@ -52,16 +52,16 @@ const getters = {
 }
 
 const actions = {
-    loadGuests({commit}){
-        guestService.getAllGuests()
+    loadCheckins({commit}){
+        checkinService.getAllCheckins()
             .then((response)=>{
-                commit('setGuests', response)
+                commit('setCheckins', response)
             })
     },
-    saveGuest({state, commit}){
-        guestService.saveGuest(state.form)
+    saveCheckin({state, commit}){
+        checkinService.saveCheckin(state.form)
             .then(() => {
-                commit('addGuest', state.form)
+                commit('addCheckin', state.form)
             })
     }
 };

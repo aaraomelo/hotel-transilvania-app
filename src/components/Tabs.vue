@@ -25,7 +25,7 @@
         <guests/>
       </v-tab-item>
       <v-tab-item>
-        <!-- <checkins/> -->
+        <checkins/>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -33,13 +33,13 @@
 
 <script>
 import Guests from './Guests/';
-// import Checkins from './Checkins';
+import Checkins from './Checkins';
 
   export default {
     name: "Tabs",
     components: {
       Guests,
-      // Checkins
+      Checkins
     },
     data () {
       return {
