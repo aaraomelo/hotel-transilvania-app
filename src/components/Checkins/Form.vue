@@ -23,6 +23,13 @@
           <v-container>
             <v-row>
               <v-col cols="12">
+                <v-autocomplete
+                  v-model="guest"
+                  :items="guests"
+                  label="Hóspede"
+                ></v-autocomplete>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field
                     v-model="nome"
                     :error-messages="nomeErrors"
@@ -90,8 +97,25 @@
       telefone: { required },
     },
 
-    data: () => ({dialog: false,}),
+    data: () => ({
+      dialog: false,
+      items: ['foo', 'bar', 'fizz', 'buzz'],
+      values: ['foo', 'bar'],
+    }),
     computed: {
+      guest:{
+        get(){
+          return ''
+        },
+        set(value){
+          this.$store.commit('checkins/setHospedeByName', value)
+        }
+      },
+      guests:{
+        get(){
+          return this.$store.getters['checkins/getGuestsNames']
+        }
+      },
       nome:{
         get(){
           return this.$store.state.checkins.form.nome

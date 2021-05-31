@@ -6,13 +6,6 @@
     >
       <v-card-title>
 
-      <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Buscar"
-          single-line
-          hide-details
-      ></v-text-field>
       <Form/>
 
       </v-card-title>

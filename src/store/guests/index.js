@@ -56,6 +56,7 @@ const actions = {
         guestService.getAllGuests()
             .then((response)=>{
                 commit('setGuests', response)
+                commit('checkins/setGuests', response, { root: true })
             })
     },
     saveGuest({state, commit}){

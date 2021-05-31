@@ -3,12 +3,14 @@ import checkinService from '../../services/checkin.service'
 
 const state = {
     form:{
+        hospede:'',
         nome: '',
         documento: '',
         telefone: ''
     },
     select:'nome',
     search:'',
+    guests:[],
     checkins: [
         {
         nome: '',
@@ -19,11 +21,17 @@ const state = {
 };
 
 const mutations = {
+    setHospedeByName(state, name){
+        state.form.hospede = state.guests.find(guest => guest.nome === name).documento;
+    },
     addCheckin(state, checkins){
         state.checkins.push(checkins);
     },
     setCheckins(state, checkins){
         state.checkins= checkins;
+    },
+    setGuests(state, guests){
+        state.guests = guests;
     },
     setSelect(state, value){
         state.select = value;
@@ -43,6 +51,9 @@ const mutations = {
 };
 
 const getters = {
+    getGuestsNames(state){
+        return state.guests.map((guest) => guest.nome);
+    },
     getSearch(state){
         return { [state.select]: state.search }
     },
