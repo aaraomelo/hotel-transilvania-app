@@ -4,12 +4,11 @@ import checkinService from '../../services/checkin.service'
 const state = {
     form:{
         hospede:'',
-        nome: '',
-        documento: '',
-        telefone: ''
+        dataEntrada: '',
+        dataSaida: '',
+        adicionalVeiculo: false,
     },
     select:'nome',
-    search:'',
     guests:[],
     checkins: [
         {
@@ -36,26 +35,20 @@ const mutations = {
     setSelect(state, value){
         state.select = value;
     },
-    setSearch(state, value){
-        state.search = value;
+    updateFormDataEntrada(state, field) {
+        state.form.dataEntrada = field
     },
-    updateFormName(state, field) {
-        state.form.nome = field
+    updateFormDataSaida(state, field) {
+        state.form.dataSaida = field
     },
-    updateFormDocument(state, field) {
-        state.form.documento = field
-    },
-    updateFormPhone(state, field) {
-        state.form.telefone = field
-    },
+    updateFormAdicionalVeiculo(state, field) {
+        state.form.adicionalVeiculo = field
+    }
 };
 
 const getters = {
     getGuestsNames(state){
         return state.guests.map((guest) => guest.nome);
-    },
-    getSearch(state){
-        return { [state.select]: state.search }
     },
     getFormField(state) {
         return getField(state.form);

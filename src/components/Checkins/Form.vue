@@ -12,12 +12,12 @@
           v-bind="attrs"
           v-on="on"
         >
-          Adicionar hóspede
+          Adicionar checkin
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Adicione um hóspede</span>
+          <span class="headline">Adicione um checkin</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -28,36 +28,21 @@
                   :items="guests"
                   label="Hóspede"
                 ></v-autocomplete>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    v-model="nome"
-                    :error-messages="nomeErrors"
-                    label="Nome"
-                    required
-                    @input="$v.nome.$touch()"
-                    @blur="$v.nome.$touch()"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    v-model="documento"
-                    :error-messages="documentoErrors"
-                    label="Documento"
-                    required
-                    @input="$v.documento.$touch()"
-                    @blur="$v.documento.$touch()"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    v-model="telefone"
-                    :error-messages="telefoneErrors"
-                    label="Telefone"
-                    required
-                    @input="$v.telefone.$touch()"
-                    @blur="$v.telefone.$touch()"
-                ></v-text-field>
+                <DateTime label="Data de entrada" v-model="dataEntrada"> </DateTime>
+
+                <DateTime label="Data de saída" v-model="dataSaida"> </DateTime>
+                
+                <v-container fluid>
+                  
+                  <template>
+                    <v-checkbox
+                      v-model="adicionalVeiculo"
+                      label="O hóspede possui veículo"
+                      color="success"
+                      hide-details
+                    ></v-checkbox>
+                  </template>
+                </v-container>
               </v-col>
             </v-row>
           </v-container>
@@ -69,14 +54,14 @@
             text
             @click="dialog = false"
           >
-            Close
+            Fechar
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
             @click="dialog = false; $store.dispatch('checkins/saveCheckin')"
           >
-            Save
+            Salvar
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -87,20 +72,25 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
+  import  DateTime from "../DatetimePicker";
 
   export default {
+    components:{
+      DateTime
+    },
     mixins: [validationMixin],
 
     validations: {
-      nome: { required },
-      documento: { required },
-      telefone: { required },
+      dataEntrada: { required },
+      dataSaida: { required },
+      adicionalVeiculo: { required },
     },
 
     data: () => ({
       dialog: false,
       items: ['foo', 'bar', 'fizz', 'buzz'],
       values: ['foo', 'bar'],
+      success: false 
     }),
     computed: {
       guest:{
@@ -116,46 +106,46 @@
           return this.$store.getters['checkins/getGuestsNames']
         }
       },
-      nome:{
+      dataEntrada:{
         get(){
-          return this.$store.state.checkins.form.nome
+          return this.$store.state.checkins.form.dataEntrada
         },
         set(value){
-          this.$store.commit('checkins/updateFormName', value)
+          this.$store.commit('checkins/updateFormDataEntrada', value)
         }
       },
-      documento:{
+      dataSaida:{
         get(){
-          return this.$store.state.checkins.form.documento
+          return this.$store.state.checkins.form.dataSaida
         },
         set(value){
-          this.$store.commit('checkins/updateFormDocument', value)
+          this.$store.commit('checkins/updateFormDataSaida', value)
         }
       },
-      telefone:{
+      adicionalVeiculo:{
         get(){
-          return this.$store.state.checkins.form.telefone
+          return this.$store.state.checkins.form.adicionalVeiculo
         },
         set(value){
-          this.$store.commit('checkins/updateFormPhone', value)
+          this.$store.commit('checkins/updateFormAdicionalVeiculo', value)
         }
       },
-      nomeErrors () {
+      dataEntradaErrors () {
         const errors = []
-        if (!this.$v.nome.$dirty) return errors
-        !this.$v.nome.required && errors.push('Nome is required.')
+        if (!this.$v.dataEntrada.$dirty) return errors
+        !this.$v.dataEntrada.required && errors.push('dataEntrada is required.')
         return errors
       },
-      documentoErrors () {
+      dataSaidaErrors () {
         const errors = []
-        if (!this.$v.documento.$dirty) return errors
-        !this.$v.documento.required && errors.push('Documento is required')
+        if (!this.$v.dataSaida.$dirty) return errors
+        !this.$v.dataSaida.required && errors.push('dataSaida is required')
         return errors
       },
-        telefoneErrors () {
+      adicionalVeiculoErrors () {
         const errors = []
-        if (!this.$v.telefone.$dirty) return errors
-        !this.$v.telefone.required && errors.push('Tefone is required')
+        if (!this.$v.adicionalVeiculo.$dirty) return errors
+        !this.$v.adicionalVeiculo.required && errors.push('adicionalVeiculo is required')
         return errors
       },
     },
@@ -166,9 +156,9 @@
       },
       clear () {
         this.$v.$reset()
-        this.nome = ''
-        this.documento = ''
-        this.telefone = ''
+        this.dataEntrada = ''
+        this.dataSaida = ''
+        this.adicionalVeiculo = ''
       },
     },
   }
