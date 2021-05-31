@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = `${process.env.VUE_APP_BASE_URL}/guests`;
+const url = `${process.env.VUE_APP_BASE_URL}guests`;
 
 export default {
     getAllGuests: () => {
@@ -10,6 +10,11 @@ export default {
     },
     saveGuest: (guest) => {
         return axios.post(url, guest )
+            .then((response) => response.data)
+            .catch((error) => error)
+    },
+    searchGuests: (search) => {
+        return axios.post(`${url}/search`, search )
             .then((response) => response.data)
             .catch((error) => error)
     },

@@ -93,6 +93,7 @@
             },
             set(value){
               this.$store.commit('guests/setSearch', value);
+              this.$store.dispatch('guests/searchGuests');
             }
         },
         select:{
@@ -101,6 +102,7 @@
             },
             set(value){
               this.$store.commit('guests/setSelect', value)
+              this.$store.dispatch('guests/searchGuests');
             }
         },
         guests(){

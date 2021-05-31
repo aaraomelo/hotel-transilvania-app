@@ -63,6 +63,12 @@ const actions = {
             .then(() => {
                 commit('addGuest', state.form)
             })
+    },
+    searchGuests({ commit, getters}){
+        guestService.searchGuests(getters.getSearch)
+            .then((response) => {
+                commit('setGuests', response)
+            })
     }
 };
 
