@@ -11,9 +11,9 @@ const state = {
     search:'',
     guests: [
         {
-        nome: '',
-        documento: '',
-        telefone: ''
+            nome: '',
+            documento: '',
+            telefone: ''
         }
     ]
 };
@@ -64,8 +64,8 @@ const actions = {
                 commit('addGuest', state.form)
             })
     },
-    searchGuests({ commit, getters}){
-        guestService.searchGuests(getters.getSearch)
+    async searchGuests({ commit, getters}){
+        await guestService.searchGuests(getters.getSearch)
             .then((response) => {
                 commit('setGuests', response)
             })

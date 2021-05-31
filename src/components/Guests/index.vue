@@ -13,7 +13,6 @@
           single-line
           hide-details
       ></v-text-field>
-      <Form/>
 
       </v-card-title>
 
@@ -22,8 +21,9 @@
       <template v-slot:top>
           <v-container fluid>
 
-        <span>Filtrar por: </span>
-
+          <span>Filtrar por: </span>
+            <v-row>
+              <v-col>
               <v-radio-group
               v-model="select"
               row
@@ -41,6 +41,14 @@
                   value="telefone"
               ></v-radio>
               </v-radio-group>
+              </v-col>
+              
+              <v-col>
+                <Form/>
+              </v-col>
+
+            </v-row>
+
           </v-container>
 
       </template>
