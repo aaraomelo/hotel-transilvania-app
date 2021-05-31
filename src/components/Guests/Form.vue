@@ -67,7 +67,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false; $store.dispatch('saveGuest')"
+            @click="dialog = false; $store.dispatch('guests/saveGuest')"
           >
             Save
           </v-btn>
@@ -80,7 +80,6 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
-  import { mapFields } from 'vuex-map-fields';
 
   export default {
     mixins: [validationMixin],
@@ -93,11 +92,30 @@
 
     data: () => ({dialog: false,}),
     computed: {
-      ...mapFields([
-            'form.nome',
-            'form.documento',
-            'form.telefone',
-        ]),
+      nome:{
+        get(){
+          return this.$store.state.guests.form.nome
+        },
+        set(value){
+          this.$store.commit('guests/updateFormName', value)
+        }
+      },
+      documento:{
+        get(){
+          return this.$store.state.guests.form.documento
+        },
+        set(value){
+          this.$store.commit('guests/updateFormDocument', value)
+        }
+      },
+      telefone:{
+        get(){
+          return this.$store.state.guests.form.telefone
+        },
+        set(value){
+          this.$store.commit('guests/updateFormPhone', value)
+        }
+      },
       nomeErrors () {
         const errors = []
         if (!this.$v.nome.$dirty) return errors

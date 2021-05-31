@@ -92,25 +92,23 @@
                 return this.$store.state.search;
             },
             set(value){
-              this.$store.commit('setSearch', value);
-              console.log(this.$store.getters.getSearch);
+              this.$store.commit('guests/setSearch', value);
             }
         },
         select:{
             get(){
-                return this.$store.state.select;
+                return this.$store.state.guests.select;
             },
             set(value){
-              this.$store.commit('setSelect', value)
-              console.log(this.$store.getters.getSearch);
+              this.$store.commit('guests/setSelect', value)
             }
         },
         guests(){
-            return this.$store.state.guests
+            return this.$store.state.guests.guests
         }
     },
-    mounted(){
-      this.$store.dispatch('loadGuests');
+    created(){
+      this.$store.dispatch('guests/loadGuests');
     }
   }
 </script>
