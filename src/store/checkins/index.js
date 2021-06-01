@@ -4,17 +4,18 @@ import checkinService from '../../services/checkin.service'
 const state = {
     form:{
         hospede:'',
-        dataEntrada: '',
-        dataSaida: '',
-        adicionalVeiculo: false,
+        dataentrada: '',
+        datasaida: '',
+        adicionalveiculo: false,
     },
     select:'nome',
     guests:[],
     checkins: [
         {
-        nome: '',
-        documento: '',
-        telefone: ''
+            hospede:'',
+            dataentrada: '',
+            datasaida: '',
+            adicionalveiculo: false,
         }
     ]
 };
@@ -36,13 +37,13 @@ const mutations = {
         state.select = value;
     },
     updateFormDataEntrada(state, field) {
-        state.form.dataEntrada = field
+        state.form.dataentrada = field
     },
     updateFormDataSaida(state, field) {
-        state.form.dataSaida = field
+        state.form.datasaida = field
     },
     updateFormAdicionalVeiculo(state, field) {
-        state.form.adicionalVeiculo = field
+        state.form.adicionalveiculo = field
     }
 };
 

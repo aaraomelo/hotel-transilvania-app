@@ -12,7 +12,7 @@
       >
         <template v-slot:progress>
           <slot name="progress">
-            <v-progress-linear color="primary" indeterminate absolute height="2"></v-progress-linear>
+            <v-progress-linear color="rgb(0,153,153)" indeterminate absolute height="2"></v-progress-linear>
           </slot>
         </template>
       </v-text-field>
@@ -23,16 +23,16 @@
         <v-tabs fixed-tabs v-model="activeTab">
           <v-tab key="calendar">
             <slot name="dateIcon">
-              <v-icon>mdi-calendar</v-icon>
+              <v-icon color="rgb(0,153,153)" >mdi-calendar</v-icon>
             </slot>
           </v-tab>
           <v-tab key="timer" :disabled="dateSelected">
             <slot name="timeIcon">
-              <v-icon>mdi-clock-outline</v-icon>
+              <v-icon color="rgb(0,153,153)" >mdi-clock-outline</v-icon>
             </slot>
           </v-tab>
-          <v-tab-item key="calendar">
-            <v-date-picker v-model="date" v-bind="datePickerProps" @input="showTimePicker" full-width></v-date-picker>
+          <v-tab-item  key="calendar">
+            <v-date-picker  color="rgb(0,153,153)" v-model="date" v-bind="datePickerProps" @input="showTimePicker" full-width></v-date-picker>
           </v-tab-item>
           <v-tab-item key="timer">
             <v-time-picker
@@ -41,6 +41,7 @@
               v-model="time"
               v-bind="timePickerProps"
               full-width
+              color="rgb(0,153,153)"
             ></v-time-picker>
           </v-tab-item>
         </v-tabs>
@@ -170,7 +171,7 @@ export default {
     },
     okHandler() {
       this.resetPicker()
-      this.$emit('input', this.date + ' ' + this.time + ':00')
+      this.$emit('input', this.date + ' ' + this.time)
     //   this.$emit('input', this.selectedDatetime)
     },
     clearHandler() {

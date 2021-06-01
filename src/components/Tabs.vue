@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar
-      color="purple"
+      color="rgb(0,153,153)"
       dark
       flat
     >

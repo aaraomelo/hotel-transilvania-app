@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = `${process.env.VUE_APP_BASE_URL}/checkin`;
+const url = `${process.env.VUE_APP_BASE_URL}checkins`;
 
 export default {
     getAllCheckins: () => {
