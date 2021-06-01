@@ -5,6 +5,16 @@
       dark
       flat
     >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="../assets/logo.png"
+          width="190"
+        />
+      </div>
       <template v-slot:extension>
         <v-tabs
           v-model="tabs"
