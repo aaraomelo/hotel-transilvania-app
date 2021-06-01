@@ -4,46 +4,35 @@
       class="mx-auto"
       max-width="800"
     >
-      <v-card-title>
-
-      
-
-      </v-card-title>
-
       <v-simple-table>
-
       <template v-slot:top>
-          <v-container fluid>
-
+        <v-container fluid>
         <span>Filtrar por: </span>
-              <v-row>
+            <v-row>
               <v-col>
-              <v-radio-group
-              v-model="select"
-              row
-              >
-              <v-radio
-                  label="Nome"
-                  value="nome"
-              ></v-radio>
-              <v-radio
-                  label="Documento"
-                  value="documento"
-              ></v-radio>
-              <v-radio
-                  label="Telefone"
-                  value="telefone"
-              ></v-radio>
-              </v-radio-group>
+                <v-radio-group
+                v-model="select"
+                row
+                >
+                <v-radio
+                    label="Todos"
+                    value="searchall"
+                ></v-radio>
+                <v-radio
+                    label="Ausentes"
+                    value="serachold"
+                ></v-radio>
+                <v-radio
+                    label="Presentes"
+                    value="searchcurrent"
+                ></v-radio>
+                </v-radio-group>
               </v-col>
-
               <v-col>
                 <Form/>
               </v-col>
-              </v-row>
-
+            </v-row>
           </v-container>
-
       </template>
 
       <template v-slot:default>
@@ -65,7 +54,7 @@
             v-for="item in checkins"
             :key="item.documento"
           >
-            <td>{{ item.hospede }}</td>
+            <td>{{ $store.getters['checkins/getNameByDocumento'](item.hospede) }}</td>
             <td>{{ item.dataentrada }}</td>
             <td>{{ item.datasaida }}</td>
           </tr>
@@ -102,6 +91,7 @@
             },
             set(value){
               this.$store.commit('checkins/setSelect', value)
+              this.$store.dispatch('checkins/searchCheckins')
             }
         },
         checkins(){

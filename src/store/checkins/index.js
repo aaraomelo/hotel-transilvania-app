@@ -8,7 +8,7 @@ const state = {
         datasaida: '',
         adicionalveiculo: false,
     },
-    select:'nome',
+    select:'searchall',
     guests:[],
     checkins: [
         {
@@ -54,6 +54,12 @@ const getters = {
     getFormField(state) {
         return getField(state.form);
     },
+    getNameByDocumento:(state) => (documento) => {
+        return state.guests.find(guest => guest.documento === documento).nome;
+    },
+    getSelect(state){
+        return state.select;
+    },
 }
 
 const actions = {
@@ -67,6 +73,12 @@ const actions = {
         checkinService.saveCheckin(state.form)
             .then(() => {
                 commit('addCheckin', state.form)
+            })
+    },
+    async searchCheckins({ commit, getters}){
+        await checkinService.searchCheckins(getters.getSelect)
+            .then((response) => {
+                commit('setCheckins', response)
             })
     }
 };

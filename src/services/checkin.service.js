@@ -13,5 +13,10 @@ export default {
             .then((response) => response.data)
             .catch((error) => error)
     },
+    searchCheckins: (select) => {
+        return axios.get(`${url}/${select}`)
+            .then((response) => response.data)
+            .catch((error) => error)
+    },
 }
 
