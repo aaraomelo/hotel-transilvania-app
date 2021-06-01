@@ -9,7 +9,13 @@ const state = {
         adicionalveiculo: false,
     },
     select:'searchall',
-    guests:[],
+    guests:[
+        {
+            nome: '',
+            documento: '',
+            telefone: ''
+        }
+    ],
     checkins: [
         {
             hospede:'',
@@ -55,7 +61,7 @@ const getters = {
         return getField(state.form);
     },
     getNameByDocumento:(state) => (documento) => {
-        return state.guests.find(guest => guest.documento === documento).nome;
+        return state.guests.find(guest => guest.documento === documento)?.nome || '';
     },
     getSelect(state){
         return state.select;
